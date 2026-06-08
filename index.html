@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>出口e融 · 客户经理一点通</title>
+<style>
+  :root{
+    --ink:#0d2b26;--ink-soft:#3f5a53;--muted:#7a8e88;
+    --primary:#0a6f5b;--primary-dark:#064d40;--primary-soft:#e7f2ee;
+    --accent:#c2912b;--accent-soft:#f6efdd;
+    --bg:#f3f6f3;--card:#ffffff;--line:#e2e9e5;--no:#b04a3a;
+    --shadow:0 1px 2px rgba(13,43,38,.04),0 8px 28px rgba(13,43,38,.07);--radius:16px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;padding:0 0 84px;}
+  .wrap{max-width:480px;margin:0 auto;padding:0 16px;}
+
+  header{position:relative;color:#fff;padding:26px 0 24px;overflow:hidden;
+    background:radial-gradient(120% 140% at 0% 0%, rgba(194,145,43,.16) 0%, rgba(194,145,43,0) 45%),
+      radial-gradient(120% 140% at 100% 0%, rgba(255,255,255,.12) 0%, rgba(255,255,255,0) 40%),
+      linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);}
+  header::after{content:"";position:absolute;right:-40px;bottom:-60px;width:180px;height:180px;border:1.5px solid rgba(255,255,255,.10);border-radius:50%;}
+  header::before{content:"";position:absolute;right:6px;bottom:-30px;width:110px;height:110px;border:1.5px solid rgba(194,145,43,.30);border-radius:50%;}
+  .eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.72);font-weight:600;margin:0 0 8px;}
+  h1{font-size:24px;font-weight:800;margin:0;letter-spacing:.5px;}
+  .sub{font-size:12.5px;color:rgba(255,255,255,.80);margin:8px 0 0;}
+  .tagline{display:inline-flex;align-items:center;gap:6px;margin-top:14px;background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.18);padding:6px 12px;border-radius:999px;font-size:12px;font-weight:600;}
+  .tagline b{color:#fff;}
+
+  .tab{display:none;}
+  .tab.active{display:block;animation:rise .35s ease;}
+  @keyframes rise{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
+
+  /* ---- home ---- */
+  .hl{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:6px 16px;margin-top:18px;box-shadow:var(--shadow);}
+  .hl-row{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line);}
+  .hl-row:last-child{border-bottom:none;}
+  .hl-ic{flex:0 0 auto;width:27px;height:27px;border-radius:8px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;margin-top:1px;}
+  .hl-ic svg{width:15px;height:15px;}
+  .hl-row p{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.5;}
+  .hl-row b{color:var(--ink);font-weight:800;}
+  .entry{display:flex;align-items:center;gap:15px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px;margin-top:14px;box-shadow:var(--shadow);cursor:pointer;transition:transform .12s,box-shadow .2s;text-align:left;width:100%;font-family:inherit;}
+  .entry:active{transform:scale(.985);}
+  .entry .ico{flex:0 0 auto;width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;}
+  .entry.c1 .ico{background:linear-gradient(135deg,var(--primary),var(--primary-dark));}
+  .entry.c2 .ico{background:linear-gradient(135deg,var(--accent),#9a6f17);}
+  .entry .ico svg{width:26px;height:26px;}
+  .entry .txt b{display:block;font-size:16.5px;font-weight:800;color:var(--ink);margin-bottom:2px;}
+  .entry .txt span{font-size:12.5px;color:var(--muted);line-height:1.5;}
+  .entry .go{margin-left:auto;color:var(--line);}
+  .applies{font-size:12px;color:var(--ink-soft);background:var(--primary-soft);border-radius:11px;padding:11px 13px;margin-top:16px;line-height:1.7;}
+  .applies b{color:var(--primary-dark);}
+  .applies .x{color:var(--no);font-weight:600;}
+
+  .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-top:16px;padding:20px 18px;border:1px solid var(--line);}
+  .sec-title{font-size:12px;font-weight:800;color:var(--primary);letter-spacing:1.5px;text-transform:uppercase;margin:0 0 14px;display:flex;align-items:center;gap:8px;}
+  .sec-title .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+
+  /* ---- screener form ---- */
+  .field{margin-bottom:20px;}
+  .field:last-of-type{margin-bottom:0;}
+  .label{display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:10px;flex-wrap:wrap;}
+  .label .gate{font-size:10px;font-weight:700;color:var(--primary);background:var(--primary-soft);padding:2px 7px;border-radius:6px;letter-spacing:.5px;}
+  .label .opt{font-size:11px;font-weight:500;color:var(--muted);}
+  input[type=text]{width:100%;border:1.5px solid var(--line);border-radius:11px;padding:12px 14px;font-size:15px;font-family:inherit;color:var(--ink);background:#fcfdfc;outline:none;transition:border-color .15s,box-shadow .15s;}
+  input[type=text]:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft);}
+  input[type=text]::placeholder{color:#aab8b2;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{flex:1 1 auto;min-width:fit-content;text-align:center;border:1.5px solid var(--line);background:#fcfdfc;color:var(--ink-soft);
+    padding:11px 10px;border-radius:11px;font-size:13.5px;font-weight:600;cursor:pointer;transition:all .14s ease;user-select:none;}
+  .chip:active{transform:scale(.97);}
+  .chip.on{background:var(--primary);border-color:var(--primary);color:#fff;box-shadow:0 4px 12px rgba(10,111,91,.22);}
+  .chip.on.bad{background:var(--no);border-color:var(--no);box-shadow:0 4px 12px rgba(176,74,58,.22);}
+
+  .btn{width:100%;border:none;border-radius:13px;padding:16px;font-size:16px;font-weight:800;font-family:inherit;cursor:pointer;letter-spacing:1px;transition:transform .12s,box-shadow .2s;margin-top:4px;}
+  .btn-go{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);color:#fff;box-shadow:0 8px 22px rgba(10,111,91,.28);}
+  .btn-go:active{transform:translateY(1px) scale(.995);}
+  .btn-reset{background:transparent;color:var(--muted);font-weight:600;font-size:14px;letter-spacing:0;padding:12px;box-shadow:none;margin-top:10px;}
+
+  #result{display:none;}
+  #result.show{display:block;animation:rise .4s cubic-bezier(.2,.8,.2,1);}
+  .verdict{border-radius:var(--radius);padding:22px 18px;color:#fff;position:relative;overflow:hidden;margin-top:16px;box-shadow:var(--shadow);}
+  .verdict.ok{background:linear-gradient(135deg,#0a6f5b,#064d40);}
+  .verdict.warn{background:linear-gradient(135deg,#c2912b,#9a6f17);}
+  .verdict.no{background:linear-gradient(135deg,#8a5246,#6e3a30);}
+  .verdict-top{display:flex;align-items:center;justify-content:space-between;gap:14px;}
+  .v-status{font-size:13px;font-weight:700;letter-spacing:1px;opacity:.85;}
+  .v-title{font-size:22px;font-weight:800;margin:4px 0 0;letter-spacing:.5px;}
+  .score-ring{flex:0 0 auto;width:74px;height:74px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.30);}
+  .score-ring .num{font-size:30px;font-weight:800;line-height:1;}
+  .score-ring .lab{font-size:9px;letter-spacing:1px;opacity:.8;margin-top:3px;}
+  .grade-pill{display:inline-block;margin-top:14px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);padding:6px 14px;border-radius:999px;font-size:13px;font-weight:700;letter-spacing:.5px;}
+  .block{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:14px;box-shadow:var(--shadow);}
+  .block h3{font-size:12px;font-weight:800;color:var(--primary);letter-spacing:1px;margin:0 0 10px;display:flex;align-items:center;gap:7px;text-transform:uppercase;}
+  .block h3 .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+  .block p{margin:0;font-size:14px;color:var(--ink-soft);}
+  .reason-item{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:var(--ink-soft);margin-bottom:8px;}
+  .reason-item:last-child{margin-bottom:0;}
+  .reason-item .ic{flex:0 0 auto;width:18px;height:18px;border-radius:50%;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+  .ic.pass{background:var(--primary-soft);color:var(--primary);}
+  .ic.fail{background:#f7e3df;color:var(--no);}
+  .script-box{background:linear-gradient(180deg,#fbf7ec 0%,#f8f2e2 100%);border:1px solid var(--accent-soft);border-left:3px solid var(--accent);border-radius:10px;padding:14px;font-size:14px;color:#5c4a1f;line-height:1.7;}
+  .copy-btn{margin-top:10px;width:100%;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:11px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.5px;transition:background .15s;}
+  .copy-btn:active{background:#a87a1f;}
+  .copy-btn.done{background:var(--primary);}
+
+  /* ---- flow accordion ---- */
+  .acc{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:10px;background:var(--card);box-shadow:var(--shadow);}
+  .acc-head{display:flex;align-items:center;gap:12px;padding:14px 15px;cursor:pointer;}
+  .acc-head .num{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:var(--primary);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+  .acc.alt .acc-head .num{background:var(--accent);}
+  .acc-head h4{flex:1;margin:0;font-size:15px;font-weight:800;color:var(--ink);}
+  .acc-head .arrow{flex:0 0 auto;color:var(--muted);transition:transform .25s;}
+  .acc.open .acc-head .arrow{transform:rotate(180deg);}
+  .acc-body{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+  .acc.open .acc-body{max-height:1200px;}
+  .acc-in{padding:0 15px 16px 53px;font-size:13.5px;color:var(--ink-soft);line-height:1.6;}
+  .metas{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;}
+  .meta{font-size:11px;font-weight:600;padding:3px 9px;border-radius:7px;background:var(--primary-soft);color:var(--primary);}
+  .meta.t{background:var(--accent-soft);color:#8a6313;}
+  .url{display:flex;align-items:center;gap:8px;margin-top:9px;font-size:11.5px;color:var(--primary-dark);background:#f1f6f4;border:1px solid var(--line);border-radius:8px;padding:8px 10px;word-break:break-all;font-family:ui-monospace,Menlo,Consolas,monospace;cursor:pointer;}
+  .url .cp{flex:0 0 auto;font-family:inherit;font-size:10px;font-weight:700;color:#fff;background:var(--primary);border-radius:6px;padding:3px 7px;}
+  .note{font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.6;background:#fbf7ec;border:1px solid var(--accent-soft);border-radius:11px;padding:11px 13px;}
+  .note b{color:#8a6313;}
+  .manual-btn{display:flex;align-items:center;gap:14px;text-decoration:none;background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+    color:#fff;border-radius:14px;padding:16px 18px;margin-top:14px;box-shadow:0 8px 22px rgba(10,111,91,.28);}
+  .manual-btn:active{transform:scale(.99);}
+  .manual-btn .m-ico{flex:0 0 auto;font-size:24px;line-height:1;}
+  .manual-btn .m-txt b{display:block;font-size:15.5px;font-weight:800;}
+  .manual-btn .m-txt span{font-size:12px;opacity:.85;}
+  .manual-btn .m-go{margin-left:auto;font-size:24px;font-weight:800;opacity:.8;}
+
+  /* ---- bottom nav ---- */
+  .bnav{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line);}
+  .bnav-in{max-width:480px;margin:0 auto;display:flex;}
+  .bn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px 11px;background:none;border:none;font-family:inherit;font-size:11px;font-weight:700;color:var(--muted);cursor:pointer;}
+  .bn svg{width:23px;height:23px;}
+  .bn.on{color:var(--primary);}
+
+  .foot{font-size:11px;color:var(--muted);text-align:center;margin-top:22px;line-height:1.7;padding:0 6px;}
+  .foot .lock{color:var(--primary);font-weight:600;}
+
+  #toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-size:13px;font-weight:600;padding:10px 18px;border-radius:10px;opacity:0;pointer-events:none;transition:all .25s;z-index:50;}
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <p class="eyebrow">结算+ · 跨境金融</p>
+    <h1>出口e融 · 客户经理一点通</h1>
+    <p class="sub">扫码即用 · 客户筛查 + 操作流程</p>
+    <span class="tagline">纯信用 · 全线上 · 额度循环</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ========== 首页 ========== -->
+  <section class="tab active" id="tab-home">
+    <div class="hl">
+      <div class="hl-row"><span class="hl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8"/><path d="M20 4v4h-4"/><path d="M20 12a8 8 0 0 1-13.7 5.6L4 16"/><path d="M4 20v-4h4"/></svg></span><p><b>额度期限 1 年</b>，可循环使用</p></div>
+      <div class="hl-row"><span class="hl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg></span><p>最高 <b>1000 万元</b>（线下最高 <b>5000 万元</b>）</p></div>
+      <div class="hl-row"><span class="hl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><p>支持<b>发货后融资</b>或办理<b>外汇衍生品</b></p></div>
+    </div>
+
+    <button class="entry c1" onclick="go('check')">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.2 2.2L15.5 9.5"/></svg></span>
+      <span class="txt"><b>客户筛查</b><span>30 秒判断能否准入，自动生成营销话术</span></span>
+      <span class="go"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+    </button>
+
+    <button class="entry c2" onclick="go('flow')">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="1.6"/><circle cx="5" cy="12" r="1.6"/><circle cx="5" cy="18" r="1.6"/><line x1="9.5" y1="6" x2="20" y2="6"/><line x1="9.5" y1="12" x2="20" y2="12"/><line x1="9.5" y1="18" x2="20" y2="18"/></svg></span>
+      <span class="txt"><b>操作流程</b><span>七步线上办理全流程 + 系统入口</span></span>
+      <span class="go"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+    </button>
+
+  </section>
+
+  <!-- ========== 客户筛查 ========== -->
+  <section class="tab" id="tab-check">
+    <div class="card" id="form">
+      <p class="sec-title"><span class="dot"></span>客户准入筛查</p>
+      <div class="field">
+        <div class="label">企业名称 <span class="opt">（选填，用于生成话术）</span></div>
+        <input type="text" id="cname" placeholder="如：深圳市XX电子有限公司" autocomplete="off">
+      </div>
+      <div class="field">
+        <div class="label">成立年限 <span class="gate">准入项</span></div>
+        <div class="chips" data-name="years">
+          <div class="chip" data-v="ok">满 2 年及以上</div>
+          <div class="chip" data-v="no">不满 2 年</div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label">外汇收支分类 <span class="gate">准入项</span></div>
+        <div class="chips" data-name="cat">
+          <div class="chip" data-v="A">A 类</div>
+          <div class="chip" data-v="B">B 类</div>
+          <div class="chip" data-v="C">C 类</div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label">征信 / 司法记录 <span class="gate">准入项</span></div>
+        <div class="chips" data-name="risk">
+          <div class="chip" data-v="ok">无异常</div>
+          <div class="chip" data-v="no">失信 / 被执行 / 刑事</div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label">近两年收汇率 ≥ 70% <span class="gate">准入项</span></div>
+        <div class="chips" data-name="rate">
+          <div class="chip" data-v="yes">是</div>
+          <div class="chip" data-v="no">否</div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label">纳税评级 <span class="gate">准入项</span></div>
+        <div class="chips" data-name="tax">
+          <div class="chip" data-v="ok">A / B / M 级</div>
+          <div class="chip" data-v="no">C / D 级</div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label">年出口收汇额规模 <span class="opt">（万元 · 定优先级）</span></div>
+        <div class="chips" data-name="amount">
+          <div class="chip" data-v="a1">300 万以下</div>
+          <div class="chip" data-v="a2">300–500 万</div>
+          <div class="chip" data-v="a3">500–1000 万</div>
+          <div class="chip" data-v="a4">1000 万以上</div>
+        </div>
+      </div>
+      <button class="btn btn-go" onclick="run()">一键筛查</button>
+      <button class="btn btn-reset" onclick="resetForm()">重置</button>
+    </div>
+    <div id="result"></div>
+  </section>
+
+  <!-- ========== 操作流程 ========== -->
+  <section class="tab" id="tab-flow">
+    <div style="margin-top:16px">
+      <p class="sec-title" style="padding-left:2px"><span class="dot"></span>对客全流程（点击展开）</p>
+
+      <div class="acc open" onclick="toggleAcc(this)">
+        <div class="acc-head"><span class="num">1</span><h4>业务准备</h4><span class="arrow"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div>
+        <div class="acc-body"><div class="acc-in">
+          确认准入；备齐资料：营业执照、法人 / 实控人身份证、近三年财报及增值税申报表、纳税评级截图、公司章程、中征码。网银需开通<b>经办 + 复核两个 UKey</b> 并配置"网络融资"权限。
+          <div class="metas"><span class="meta">客户经理 + 企业</span></div>
+        </div></div>
+      </div>
+
+      <div class="acc" onclick="toggleAcc(this)">
+        <div class="acc-head"><span class="num">2</span><h4>客户授信申请（网银）</h4><span class="arrow"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div>
+        <div class="acc-body"><div class="acc-in">
+          登录融资申请平台，产品选"出口e融"，经办录入企业 / 实控人 / 经营信息并上传证照，复核员复核提交。提交后可即时<b>测算预授信额度</b>（仅参考）。
+          <div class="url" onclick="copyText('https://ent.cmbc.com.cn',this,event)">https://ent.cmbc.com.cn<span class="cp">复制</span></div>
+          <div class="metas"><span class="meta">企业经办 + 复核</span></div>
+        </div></div>
+      </div>
+
+      <div class="acc" onclick="toggleAcc(this)">
+        <div class="acc-head"><span class="num">3</span><h4>外管数据授权（ASone）</h4><span class="arrow"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div>
+        <div class="acc-body"><div class="acc-in">
+          企业登录数字外管平台（<b>建议火狐浏览器</b>），对"中国民生银行"授权，<b>授权范围全选、授权期 2 年</b>，生成授权码后<b>通知客户经理</b>。
+          <div class="url" onclick="copyText('https://zwfw.safe.gov.cn/asone',this,event)">https://zwfw.safe.gov.cn/asone<span class="cp">复制</span></div>
+          <div class="metas"><span class="meta">企业</span></div>
+        </div></div>
+      </div>
+
+      <div class="acc" onclick="toggleAcc(this)">
+        <div class="acc-head"><span class="num">4</span><h4>授信审批（银行处理）</h4><span class="arrow"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div>
+        <div class="acc-body"><div class="acc-in">
+          系统基于近三年收汇率、月度回款值、企业名录分类等数据模型自动审批，批复最终授信额度。
+          <div class="metas"><span class="meta">系统 / 银行</span></div>
+        </div></div>
+      </div>
+
+      <div class="acc" onclick="toggleAcc(this)">
+        <div class="acc-head"><span class="num">5</span><h4>授信额度启用（合同签署）</h4><span class="arrow"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div>
+        <div class="acc-body"><div class="acc-in">
+          线上签署综合授信合同、贸易融资主协议、实控人（及配偶）<b>担保合同</b>，必要时签署股东会决议；经手机银行人脸识别 + 短信验证完成（无我行账户的实控人可先开二类户）。
+          <div class="metas"><span class="meta">企业 + 实控人</span><span class="meta">手机银行</span></div>
+        </div></div>
+      </div>
+
+      <div class="acc" onclick="toggleAcc(this)">
+        <div class="acc-head"><span class="num">6</span><h4>融资发放（出口报关后）</h4><span class="arrow"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div>
+        <div class="acc-body"><div class="acc-in">
+          企业完成出口报关，网银发起提款，录入 / 导入<b>报关单、合同、发票清单</b>。要点：结算须为 <b>T/T 电汇赊销</b>；报关单出口日期距放款 2 个月内；融资比例 <b>85–90%</b>；期限 ≤ 4 个月。审核通过资金入账。
+          <div class="metas"><span class="meta">企业 + 客户经理</span><span class="meta t">最快当天到账</span></div>
+        </div></div>
+      </div>
+
+      <div class="acc" onclick="toggleAcc(this)">
+        <div class="acc-head"><span class="num">7</span><h4>还款</h4><span class="arrow"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div>
+        <div class="acc-body"><div class="acc-in">
+          到期以账户资金<b>自动扣款还款</b>，支持线上提前还款；外币融资已结汇的需以自有 / 出口收汇资金偿还。<b>到期日尽量避开节假日</b>，以免自动还款失败逾期。
+          <div class="metas"><span class="meta">企业</span></div>
+        </div></div>
+      </div>
+
+      <p class="note"><b>⚠ 易错点：</b>网银需经办 / 复核两个 UKey（不支持二合一）；ASone 用火狐；报关单未结关或币种与融资币种不符无法提款。</p>
+
+      <a class="manual-btn" href="manual.pdf" target="_blank" rel="noopener">
+        <span class="m-ico">📖</span>
+        <span class="m-txt"><b>查看完整对客手册</b><span>含全部操作截图与常见问题 · PDF</span></span>
+        <span class="m-go">›</span>
+      </a>
+    </div>
+  </section>
+
+  <p class="foot">
+    本工具仅供客户经理内部参考，最终准入与办理以行内系统及业务规程为准。
+  </p>
+</div>
+
+<!-- ========== bottom nav ========== -->
+<nav class="bnav"><div class="bnav-in">
+  <button class="bn on" data-tab="home" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>首页</button>
+  <button class="bn" data-tab="check" onclick="go('check')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.2 2.2L15.5 9.5"/></svg>客户筛查</button>
+  <button class="bn" data-tab="flow" onclick="go('flow')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="1.6"/><circle cx="5" cy="12" r="1.6"/><circle cx="5" cy="18" r="1.6"/><line x1="9.5" y1="6" x2="20" y2="6"/><line x1="9.5" y1="12" x2="20" y2="12"/><line x1="9.5" y1="18" x2="20" y2="18"/></svg>操作流程</button>
+</div></nav>
+
+<div id="toast"></div>
+
+<script>
+  function go(id){
+    document.querySelectorAll('.tab').forEach(function(s){s.classList.remove('active');});
+    document.getElementById('tab-'+id).classList.add('active');
+    document.querySelectorAll('.bn').forEach(function(b){b.classList.toggle('on',b.dataset.tab===id);});
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function toggleAcc(el){ el.classList.toggle('open'); }
+
+  function copyText(text,el,ev){
+    if(ev) ev.stopPropagation();
+    const done=function(){ showToast('已复制链接'); };
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){fbCopy(text,done);}); }
+    else fbCopy(text,done);
+  }
+  function fbCopy(t,done){const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done();}catch(e){}document.body.removeChild(ta);}
+  let toastTimer=null;
+  function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove('show');},1600);}
+
+  /* ---- screener ---- */
+  const state={years:null,cat:null,risk:null,rate:null,tax:null,amount:null};
+  document.querySelectorAll('.chips').forEach(function(group){
+    const name=group.dataset.name;
+    group.querySelectorAll('.chip').forEach(function(chip){
+      chip.addEventListener('click',function(){
+        group.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on','bad');});
+        chip.classList.add('on');
+        const v=chip.dataset.v;
+        const badGate=(v==='no'&&(name==='years'||name==='risk'||name==='rate'||name==='tax'))
+                     ||(name==='cat'&&(v==='B'||v==='C'));
+        if(badGate) chip.classList.add('bad');
+        state[name]=v;
+      });
+    });
+  });
+
+  function run(){
+    const need=['years','cat','risk','rate','tax','amount'];
+    for(var i=0;i<need.length;i++){ if(!state[need[i]]){ showToast('请先完成全部准入项 + 收汇额规模'); return; } }
+    const gates=[
+      {ok:state.years==='ok',label:'成立满 2 年',fail:'企业成立不满 2 年'},
+      {ok:state.cat==='A',label:'外汇分类 A 类',fail:'外汇分类为 '+(state.cat||'')+' 类（需 A 类）'},
+      {ok:state.risk==='ok',label:'征信 / 司法记录正常',fail:'存在失信、被执行或刑事记录'},
+      {ok:state.rate==='yes',label:'近两年收汇率 ≥ 70%',fail:'近两年收汇率低于 70%'},
+      {ok:state.tax==='ok',label:'纳税评级 A / B / M',fail:'纳税评级为 C 或 D，不可准入'}
+    ];
+    const passed=gates.filter(function(g){return g.ok;});
+    const failed=gates.filter(function(g){return !g.ok;});
+    const who=(document.getElementById('cname').value||'').trim()||'该客户';
+    let html='';
+    if(failed.length===0){
+      var letter,grade,gact;
+      if(state.amount==='a4'||state.amount==='a3'){letter='A';grade='优先客户';gact='立即列入本周重点跟进，尽快上门测算额度、引导线上发起申请。';}
+      else if(state.amount==='a2'){letter='B';grade='计划跟进';gact='纳入本月营销计划，结合结售汇维护顺势切入融资。';}
+      else{letter='C';grade='培育客户';gact='已符合准入，可先以结售汇维护并适时推进，额度随收汇规模增长而提升。';}
+      const amtHint='授信额度约为上年出口收汇额的 10–30%（发票融资最高 500 万，循环使用）。';
+      const script = who+'负责人您好，看您公司出口收汇一直很稳定，我们行有款"出口e融"——纯信用、不用抵押、全线上办理，发票融资最高循环 500 万；还能同步给您配一笔远期避险额度锁定汇率。我帮您测算一下大概能批多少额度？';
+      html += verdict('ok','符合准入条件','建议推进 出口e融',letter,'优先级 '+letter+' · '+grade);
+      html += '<div class="block"><h3><span class="dot"></span>判断依据</h3>'+reasonList(passed,[])+'</div>';
+      html += '<div class="block"><h3><span class="dot"></span>推荐动作</h3><p>'+gact+'<br><br>'+amtHint+'</p></div>';
+      html += scriptBlock(script);
+    } else if(failed.length===1){
+      const f=failed[0];
+      html += verdict('warn','接近准入 · 差一项','可培育 / 暂缓',null,'差 1 项准入条件');
+      html += '<div class="block"><h3><span class="dot"></span>判断依据</h3>'+reasonList(passed,failed)+'</div>';
+      html += '<div class="block"><h3><span class="dot"></span>建议</h3><p>仅差一项准入条件（'+f.fail+'）。建议先以结售汇 / 跨境结算维护关系，待该条件改善后再推进出口e融。</p></div>';
+    } else {
+      html += verdict('no','暂不符合准入','建议先维护基础关系',null,'差 '+failed.length+' 项准入条件');
+      html += '<div class="block"><h3><span class="dot"></span>未满足项</h3>'+reasonList(passed,failed)+'</div>';
+      html += '<div class="block"><h3><span class="dot"></span>建议</h3><p>当前不建议直接推进出口e融。建议以结售汇、跨境结算等高频业务切入，建立关系并观察客户出口与收汇变化，待条件改善后再评估。</p></div>';
+    }
+    const box=document.getElementById('result');
+    box.innerHTML=html;box.classList.add('show');
+    box.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  function verdict(type,status,title,letter,grade){
+    const ring = letter!==null ? '<div class="score-ring"><div class="num">'+letter+'</div><div class="lab">优先级</div></div>' : '';
+    const pill = grade ? '<div class="grade-pill">'+grade+'</div>' : '';
+    return '<div class="verdict '+type+'"><div class="verdict-top"><div><div class="v-status">筛查结果</div><div class="v-title">'+title+'</div></div>'+ring+'</div><div style="font-size:13px;opacity:.9;margin-top:2px">'+status+'</div>'+pill+'</div>';
+  }
+  function reasonList(passed,failed){
+    let h='';
+    passed.forEach(function(p){h+='<div class="reason-item"><span class="ic pass">\u2713</span><span>'+p.label+'</span></div>';});
+    failed.forEach(function(f){h+='<div class="reason-item"><span class="ic fail">\u2715</span><span>'+f.fail+'</span></div>';});
+    return h;
+  }
+  function scriptBlock(text){
+    return '<div class="block"><h3><span class="dot"></span>开口话术（可直接照念）</h3><div class="script-box" id="scriptText">'+text+'</div><button class="copy-btn" onclick="copyScript(this)">\uD83D\uDCCB 复制话术</button></div>';
+  }
+  function copyScript(btn){
+    const t=document.getElementById('scriptText').innerText;
+    const done=function(){btn.textContent='\u2713 已复制';btn.classList.add('done');showToast('话术已复制');setTimeout(function(){btn.textContent='\uD83D\uDCCB 复制话术';btn.classList.remove('done');},1800);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done).catch(function(){fbCopy(t,done);});} else fbCopy(t,done);
+  }
+  function resetForm(){
+    Object.keys(state).forEach(function(k){state[k]=null;});
+    document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on','bad');});
+    document.getElementById('cname').value='';
+    const box=document.getElementById('result');box.classList.remove('show');box.innerHTML='';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+</body>
+</html>
