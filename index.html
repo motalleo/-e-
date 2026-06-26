@@ -462,18 +462,18 @@
 function openManual(){var m=document.getElementById('manualView');m.classList.add('open');m.scrollTop=0;document.body.style.overflow='hidden';}
 function closeManual(){document.getElementById('manualView').classList.remove('open');document.body.style.overflow='';}
 function sizeCheckFrame(){var f=document.getElementById('checkFrame');if(f)f.style.height=(window.innerHeight-50)+'px';}
-function openCheck(){var v=document.getElementById('checkView');sizeCheckFrame();v.classList.add('open');v.scrollTop=0;document.body.style.overflow='hidden';setTimeout(function(){try{var w=document.getElementById('checkFrame').contentWindow;if(w&&w.updateAll)w.updateAll();}catch(e){}},60);}
+function openCheck(){var v=document.getElementById('checkView');var f=document.getElementById('checkFrame');if(!f.getAttribute('data-loaded')){try{var t=document.getElementById('checkSrc').textContent.replace(/<\\\/script>/g,'<\/script>');var d=f.contentWindow.document;d.open();d.write(t);d.close();f.setAttribute('data-loaded','1');}catch(e){}}sizeCheckFrame();v.classList.add('open');v.scrollTop=0;document.body.style.overflow='hidden';setTimeout(function(){try{var w=f.contentWindow;if(w&&w.updateAll)w.updateAll();}catch(e){}},150);}
 function closeCheck(){document.getElementById('checkView').classList.remove('open');document.body.style.overflow='';}
 window.addEventListener('resize',sizeCheckFrame);
 </script>
-<div class="manual-view" id="checkView"><div class="mv-bar"><button class="bk" onclick="closeCheck()">‹ 返回</button><span class="ttl">出口e融 · 放款自查表</span></div><iframe id="checkFrame" title="放款自查表" style="width:100%;border:0;display:block;background:#f3f6f3" srcdoc="&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;zh-CN&quot;&gt;
-&lt;head&gt;
-&lt;meta charset=&quot;UTF-8&quot;&gt;
-&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot;&gt;
-&lt;title&gt;出口E融 · 放款自查表&lt;/title&gt;
-&lt;script&gt;if(window.self!==window.top)document.documentElement.className+=&#x27; embed&#x27;;&lt;/script&gt;
-&lt;style&gt;
+<script type="text/html" id="checkSrc"><!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>出口E融 · 放款自查表</title>
+<script>if(window.self!==window.top)document.documentElement.className+=' embed';<\/script>
+<style>
   :root{
     --bg:#f3f6f3; --card:#ffffff; --ink:#0d2b26; --ink-soft:#3f5a53; --sub:#5e6f69;
     --line:#e2e9e5; --brand:#0a6f5b; --brand-d:#064d40; --brand-l:#e7f2ee;
@@ -483,7 +483,7 @@ window.addEventListener('resize',sizeCheckFrame);
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html{font-size:16px}
-  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,&quot;PingFang SC&quot;,&quot;Microsoft YaHei&quot;,&quot;Hiragino Sans GB&quot;,sans-serif;
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;
     background:var(--bg);color:var(--ink);line-height:1.55}
   .wrap{max-width:560px;margin:0 auto;padding:0 14px 110px}
 
@@ -532,7 +532,7 @@ window.addEventListener('resize',sizeCheckFrame);
   .cbx{appearance:none;-webkit-appearance:none;margin:0;width:26px;height:26px;flex:none;
     border:2px solid #c4ccd9;border-radius:8px;background:#fff;cursor:pointer;position:relative;transition:.12s}
   .cbx:checked{background:var(--brand);border-color:var(--brand)}
-  .cbx:checked::after{content:&quot;&quot;;position:absolute;left:8px;top:3px;width:6px;height:12px;
+  .cbx:checked::after{content:"";position:absolute;left:8px;top:3px;width:6px;height:12px;
     border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg)}
   .item-title{flex:1;font-weight:800;font-size:15px;line-height:1.35;color:var(--ink)}
   .item.checked .item-title{color:#9aa4b3;text-decoration:line-through}
@@ -585,304 +585,304 @@ window.addEventListener('resize',sizeCheckFrame);
   .kpi span{font-size:.77rem;color:var(--sub)}
 
   footer{text-align:center;color:#9aa4b3;font-size:.74rem;margin-top:26px}
-&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;header class=&quot;top&quot;&gt;
-  &lt;h1&gt;出口E融 · 放款自查表&lt;/h1&gt;
-  &lt;p&gt;客户经理版 · 逐项勾选，勾完再提交&lt;/p&gt;
-&lt;/header&gt;
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>出口E融 · 放款自查表</h1>
+  <p>客户经理版 · 逐项勾选，勾完再提交</p>
+</header>
 
-&lt;div class=&quot;wrap&quot;&gt;
+<div class="wrap">
 
-  &lt;div class=&quot;alert&quot;&gt;
-    &lt;b&gt;⚠ 放款当日：&lt;/b&gt;提交风控系统后，确认&lt;b&gt;是否全部校验通过&lt;/b&gt;。如出现&quot;落地审查&quot;，请&lt;b&gt;立即联系放款中心&lt;/b&gt;，否则影响当日放款。
-  &lt;/div&gt;
+  <div class="alert">
+    <b>⚠ 放款当日：</b>提交风控系统后，确认<b>是否全部校验通过</b>。如出现"落地审查"，请<b>立即联系放款中心</b>，否则影响当日放款。
+  </div>
 
-  &lt;!-- ============ TAB 1: 放款准备 ============ --&gt;
-  &lt;section class=&quot;panel active&quot; id=&quot;prep&quot;&gt;
-    &lt;div class=&quot;phase-h&quot;&gt;&lt;span class=&quot;dot&quot;&gt;一&lt;/span&gt;放款准备&lt;/div&gt;
-    &lt;p class=&quot;phase-sub&quot;&gt;先完成前置条件，再备齐 4 项资料，最后客户网银提交。&lt;/p&gt;
+  <!-- ============ TAB 1: 放款准备 ============ -->
+  <section class="panel active" id="prep">
+    <div class="phase-h"><span class="dot">一</span>放款准备</div>
+    <p class="phase-sub">先完成前置条件，再备齐 4 项资料，最后客户网银提交。</p>
 
-    &lt;div class=&quot;progress-wrap&quot;&gt;
-      &lt;div class=&quot;t&quot;&gt;&lt;span&gt;准备进度&lt;/span&gt;&lt;span class=&quot;cnt&quot; data-for=&quot;prep&quot;&gt;0 / 0&lt;/span&gt;&lt;/div&gt;
-      &lt;div class=&quot;bar-bg&quot;&gt;&lt;div class=&quot;bar-fill&quot; data-bar=&quot;prep&quot;&gt;&lt;/div&gt;&lt;/div&gt;
-    &lt;/div&gt;
+    <div class="progress-wrap">
+      <div class="t"><span>准备进度</span><span class="cnt" data-for="prep">0 / 0</span></div>
+      <div class="bar-bg"><div class="bar-fill" data-bar="prep"></div></div>
+    </div>
 
-    &lt;div class=&quot;phase-h&quot; style=&quot;font-size:1rem&quot;&gt;&lt;span class=&quot;dot&quot; style=&quot;background:var(--amber-l);color:var(--amber)&quot;&gt;!&lt;/span&gt;前置条件（必办）&lt;/div&gt;
+    <div class="phase-h" style="font-size:1rem"><span class="dot" style="background:var(--amber-l);color:var(--amber)">!</span>前置条件（必办）</div>
 
-    &lt;div class=&quot;item open&quot;&gt;
-      &lt;div class=&quot;item-head&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;span class=&quot;item-title&quot;&gt;额度启用 + 开立账户&lt;/span&gt;&lt;span class=&quot;who cm&quot;&gt;客户经理&lt;/span&gt;&lt;span class=&quot;chev&quot;&gt;▶&lt;/span&gt;&lt;/div&gt;
-      &lt;div class=&quot;item-body&quot;&gt;
-        &lt;p&gt;放款前一并完成：&lt;/p&gt;
-        &lt;ul&gt;
-          &lt;li&gt;&lt;b&gt;额度启用&lt;/b&gt;；&lt;/li&gt;
-          &lt;li&gt;&lt;b&gt;开立外币账户&lt;/b&gt;（若报关单币种为外币，&lt;b&gt;币种须与发票、关单一致&lt;/b&gt;）。&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="item open">
+      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">额度启用 + 开立账户</span><span class="who cm">客户经理</span><span class="chev">▶</span></div>
+      <div class="item-body">
+        <p>放款前一并完成：</p>
+        <ul>
+          <li><b>额度启用</b>；</li>
+          <li><b>开立外币账户</b>（若报关单币种为外币，<b>币种须与发票、关单一致</b>）。</li>
+        </ul>
+      </div>
+    </div>
 
-    &lt;div class=&quot;phase-h&quot; style=&quot;font-size:1rem;margin-top:18px&quot;&gt;&lt;span class=&quot;dot&quot;&gt;②&lt;/span&gt;客户经理需准备（4项）&lt;/div&gt;
+    <div class="phase-h" style="font-size:1rem;margin-top:18px"><span class="dot">②</span>客户经理需准备（4项）</div>
 
-    &lt;div class=&quot;item open&quot;&gt;
-      &lt;div class=&quot;item-head&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;span class=&quot;item-title&quot;&gt;定价审批表&lt;/span&gt;&lt;span class=&quot;who cm&quot;&gt;客户经理&lt;/span&gt;&lt;span class=&quot;chev&quot;&gt;▶&lt;/span&gt;&lt;/div&gt;
-      &lt;div class=&quot;item-body&quot;&gt;
-        &lt;p&gt;利率&lt;b&gt;低于 4.15%&lt;/b&gt; 时，伴我行发起定价审批；&lt;b&gt;4.15% 及以上免&lt;/b&gt;。&lt;/p&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="item open">
+      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">定价审批表</span><span class="who cm">客户经理</span><span class="chev">▶</span></div>
+      <div class="item-body">
+        <p>利率<b>低于 4.15%</b> 时，伴我行发起定价审批；<b>4.15% 及以上免</b>。</p>
+      </div>
+    </div>
 
-    &lt;div class=&quot;item open&quot;&gt;
-      &lt;div class=&quot;item-head&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;span class=&quot;item-title&quot;&gt;外汇展业评级&lt;/span&gt;&lt;span class=&quot;who cm&quot;&gt;客户经理&lt;/span&gt;&lt;span class=&quot;chev&quot;&gt;▶&lt;/span&gt;&lt;/div&gt;
-      &lt;div class=&quot;item-body&quot;&gt;
-        &lt;p&gt;&lt;b&gt;最迟放款前 1 日完成&lt;/b&gt;（参见《深圳分行跨境业务指引》）。&lt;/p&gt;
-        &lt;ul&gt;
-          &lt;li&gt;在民生e行搜索&quot;&lt;b&gt;尽职调查2.0&lt;/b&gt;&quot;发起尽调；&lt;/li&gt;
-          &lt;li&gt;支行负责人审批后，&lt;b&gt;提交产品经理&lt;/b&gt;。&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="item open">
+      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">外汇展业评级</span><span class="who cm">客户经理</span><span class="chev">▶</span></div>
+      <div class="item-body">
+        <p><b>最迟放款前 1 日完成</b>（参见《深圳分行跨境业务指引》）。</p>
+        <ul>
+          <li>在民生e行搜索"<b>尽职调查2.0</b>"发起尽调；</li>
+          <li>支行负责人审批后，<b>提交产品经理</b>。</li>
+        </ul>
+      </div>
+    </div>
 
-    &lt;div class=&quot;item open&quot;&gt;
-      &lt;div class=&quot;item-head&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;span class=&quot;item-title&quot;&gt;交易背景尽调&lt;/span&gt;&lt;span class=&quot;who cm&quot;&gt;客户经理&lt;/span&gt;&lt;span class=&quot;chev&quot;&gt;▶&lt;/span&gt;&lt;/div&gt;
-      &lt;div class=&quot;item-body&quot;&gt;
-        &lt;p&gt;参照&lt;b&gt;附件3模板&lt;/b&gt;，用于尽调及风控系统填写，需写明两项：&lt;/p&gt;
-        &lt;ul&gt;
-          &lt;li&gt;交易背景是否真实、是否关联交易；&lt;/li&gt;
-          &lt;li&gt;融资信息：借款人、币种、金额、利率、到期日。&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="item open">
+      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">交易背景尽调</span><span class="who cm">客户经理</span><span class="chev">▶</span></div>
+      <div class="item-body">
+        <p>参照<b>附件3模板</b>，用于尽调及风控系统填写，需写明两项：</p>
+        <ul>
+          <li>交易背景是否真实、是否关联交易；</li>
+          <li>融资信息：借款人、币种、金额、利率、到期日。</li>
+        </ul>
+      </div>
+    </div>
 
-    &lt;div class=&quot;item open&quot;&gt;
-      &lt;div class=&quot;item-head&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;span class=&quot;item-title&quot;&gt;放款资料预审&lt;/span&gt;&lt;span class=&quot;who bank&quot;&gt;交易银行部&lt;/span&gt;&lt;span class=&quot;chev&quot;&gt;▶&lt;/span&gt;&lt;/div&gt;
-      &lt;div class=&quot;item-body&quot;&gt;
-        &lt;p&gt;将&lt;b&gt;合同、报关单、发票清单&lt;/b&gt;发交易银行部预审。&lt;/p&gt;
-        &lt;div class=&quot;info&quot;&gt;网银提交前完成预审资料。&lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="item open">
+      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">放款资料预审</span><span class="who bank">交易银行部</span><span class="chev">▶</span></div>
+      <div class="item-body">
+        <p>将<b>合同、报关单、发票清单</b>发交易银行部预审。</p>
+        <div class="info">网银提交前完成预审资料。</div>
+      </div>
+    </div>
 
-    &lt;div class=&quot;phase-h&quot; style=&quot;font-size:1rem;margin-top:18px&quot;&gt;&lt;span class=&quot;dot&quot;&gt;③&lt;/span&gt;客户网银提交&lt;/div&gt;
+    <div class="phase-h" style="font-size:1rem;margin-top:18px"><span class="dot">③</span>客户网银提交</div>
 
-    &lt;div class=&quot;item open&quot;&gt;
-      &lt;div class=&quot;item-head&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;span class=&quot;item-title&quot;&gt;客户网银提交申请&lt;/span&gt;&lt;span class=&quot;who cust&quot;&gt;客户操作&lt;/span&gt;&lt;span class=&quot;chev&quot;&gt;▶&lt;/span&gt;&lt;/div&gt;
-      &lt;div class=&quot;item-body&quot;&gt;
-        &lt;p&gt;客户在&lt;b&gt;放款当天&lt;/b&gt;通过网银提交（录入说明见附件1）：&lt;/p&gt;
-        &lt;ul&gt;
-          &lt;li&gt;&lt;b&gt;上传影像：&lt;/b&gt;合同、报关单、提示函（如需）&lt;/li&gt;
-          &lt;li&gt;&lt;b&gt;网银导入：&lt;/b&gt;发票清单&lt;/li&gt;
-        &lt;/ul&gt;
-        &lt;div class=&quot;note&quot;&gt;&lt;b&gt;三点提醒（任一不符当天无法放款）：&lt;/b&gt;&lt;br&gt;① 须&lt;b&gt;当天&lt;/b&gt;提交，提前无效；&lt;br&gt;② &lt;b&gt;不同币种、不同买方&lt;/b&gt;需分别发起；&lt;br&gt;③ 勿上传未要求的单证。&lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/section&gt;
+    <div class="item open">
+      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">客户网银提交申请</span><span class="who cust">客户操作</span><span class="chev">▶</span></div>
+      <div class="item-body">
+        <p>客户在<b>放款当天</b>通过网银提交（录入说明见附件1）：</p>
+        <ul>
+          <li><b>上传影像：</b>合同、报关单、提示函（如需）</li>
+          <li><b>网银导入：</b>发票清单</li>
+        </ul>
+        <div class="note"><b>三点提醒（任一不符当天无法放款）：</b><br>① 须<b>当天</b>提交，提前无效；<br>② <b>不同币种、不同买方</b>需分别发起；<br>③ 勿上传未要求的单证。</div>
+      </div>
+    </div>
+  </section>
 
-  &lt;!-- ============ TAB 2: 资料审查 ============ --&gt;
-  &lt;section class=&quot;panel&quot; id=&quot;review&quot;&gt;
-    &lt;div class=&quot;phase-h&quot;&gt;&lt;span class=&quot;dot&quot;&gt;二&lt;/span&gt;放款资料审查&lt;/div&gt;
-    &lt;p class=&quot;phase-sub&quot;&gt;先回答两个分叉问题，再逐项核对审查点。&lt;/p&gt;
+  <!-- ============ TAB 2: 资料审查 ============ -->
+  <section class="panel" id="review">
+    <div class="phase-h"><span class="dot">二</span>放款资料审查</div>
+    <p class="phase-sub">先回答两个分叉问题，再逐项核对审查点。</p>
 
-    &lt;div class=&quot;progress-wrap&quot;&gt;
-      &lt;div class=&quot;t&quot;&gt;&lt;span&gt;审查进度&lt;/span&gt;&lt;span class=&quot;cnt&quot; data-for=&quot;review&quot;&gt;0 / 0&lt;/span&gt;&lt;/div&gt;
-      &lt;div class=&quot;bar-bg&quot;&gt;&lt;div class=&quot;bar-fill&quot; data-bar=&quot;review&quot;&gt;&lt;/div&gt;&lt;/div&gt;
-    &lt;/div&gt;
+    <div class="progress-wrap">
+      <div class="t"><span>审查进度</span><span class="cnt" data-for="review">0 / 0</span></div>
+      <div class="bar-bg"><div class="bar-fill" data-bar="review"></div></div>
+    </div>
 
-    &lt;!-- FORK A --&gt;
-    &lt;div class=&quot;fork&quot;&gt;
-      &lt;div class=&quot;q&quot;&gt;&lt;span class=&quot;qi&quot;&gt;?&lt;/span&gt;是否首笔提款？&lt;/div&gt;
-      &lt;div class=&quot;opts&quot; data-fork=&quot;first&quot;&gt;
-        &lt;button data-val=&quot;yes&quot;&gt;是 · 首笔&lt;/button&gt;
-        &lt;button data-val=&quot;no&quot;&gt;否 · 非首笔&lt;/button&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;fork-out&quot; data-show=&quot;yes&quot;&gt;
-        &lt;div class=&quot;lbl&quot;&gt;需提示客户网银上传 · 附件2&lt;/div&gt;
-        &lt;div class=&quot;sub-chk&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;label&gt;延期收款提示函（附件2）&lt;span class=&quot;stamp-tag&quot;&gt;客户盖章&lt;/span&gt;&lt;/label&gt;&lt;/div&gt;
-        &lt;div class=&quot;info&quot;&gt;&lt;b&gt;账期超 90 天&lt;/b&gt;时适用，&lt;b&gt;仅首笔提供&lt;/b&gt;。客户盖章后上传网银。&lt;/div&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;fork-out&quot; data-show=&quot;no&quot;&gt;
-        &lt;div class=&quot;muted&quot;&gt;首笔已提供，本次&lt;b&gt;无需&lt;/b&gt;再传。&lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <!-- FORK A -->
+    <div class="fork">
+      <div class="q"><span class="qi">?</span>是否首笔提款？</div>
+      <div class="opts" data-fork="first">
+        <button data-val="yes">是 · 首笔</button>
+        <button data-val="no">否 · 非首笔</button>
+      </div>
+      <div class="fork-out" data-show="yes">
+        <div class="lbl">需提示客户网银上传 · 附件2</div>
+        <div class="sub-chk"><input type="checkbox" class="cbx"><label>延期收款提示函（附件2）<span class="stamp-tag">客户盖章</span></label></div>
+        <div class="info"><b>账期超 90 天</b>时适用，<b>仅首笔提供</b>。客户盖章后上传网银。</div>
+      </div>
+      <div class="fork-out" data-show="no">
+        <div class="muted">首笔已提供，本次<b>无需</b>再传。</div>
+      </div>
+    </div>
 
-    &lt;!-- FORK B --&gt;
-    &lt;div class=&quot;fork&quot;&gt;
-      &lt;div class=&quot;q&quot;&gt;&lt;span class=&quot;qi&quot;&gt;?&lt;/span&gt;贸易背景类型？&lt;/div&gt;
-      &lt;div class=&quot;opts&quot; data-fork=&quot;bg&quot;&gt;
-        &lt;button data-val=&quot;order&quot;&gt;订单&lt;/button&gt;
-        &lt;button data-val=&quot;contract&quot;&gt;合同&lt;/button&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;fork-out&quot; data-show=&quot;order&quot;&gt;
-        &lt;div class=&quot;lbl&quot;&gt;订单要素核对&lt;/div&gt;
-        &lt;div class=&quot;sub-chk&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;label&gt;买卖双方信息（名称/地址/国别），与关单对应&lt;/label&gt;&lt;/div&gt;
-        &lt;div class=&quot;sub-chk&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;label&gt;货物、数量、单价、总价、价格条款，与关单一致&lt;/label&gt;&lt;/div&gt;
-        &lt;div class=&quot;sub-chk&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;label&gt;付款方式为 T/T，赊销账期（如发票日期后 XX 天）&lt;/label&gt;&lt;/div&gt;
-        &lt;div class=&quot;sub-chk&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;label&gt;双方签章，签署日期早于出口日期&lt;/label&gt;&lt;/div&gt;
-        &lt;div class=&quot;note&quot;&gt;订单要素要求与合同一致；&lt;b&gt;无结算账期无法办理&lt;/b&gt;。&lt;/div&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;fork-out&quot; data-show=&quot;contract&quot;&gt;
-        &lt;div class=&quot;lbl&quot;&gt;合同要素核对&lt;/div&gt;
-        &lt;div class=&quot;sub-chk&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;label&gt;买卖双方信息 + &lt;b&gt;双方签章&lt;/b&gt;，名称与关单对应&lt;/label&gt;&lt;/div&gt;
-        &lt;div class=&quot;sub-chk&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;label&gt;货物、数量、单价、总价、价格条款，与关单一致&lt;/label&gt;&lt;/div&gt;
-        &lt;div class=&quot;sub-chk&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;label&gt;付款方式为 T/T，赊销账期&lt;/label&gt;&lt;/div&gt;
-        &lt;div class=&quot;sub-chk&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;label&gt;无限制应收账款转让、质押、抵销的条款&lt;/label&gt;&lt;/div&gt;
-        &lt;div class=&quot;sub-chk&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;label&gt;收款账户为卖方在我行账户（他行需先变更回款账户）&lt;/label&gt;&lt;/div&gt;
-        &lt;div class=&quot;info&quot;&gt;合同日期早于出口日期；非港澳台买方不能只写中文；我行账户开户早于合同日期。&lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <!-- FORK B -->
+    <div class="fork">
+      <div class="q"><span class="qi">?</span>贸易背景类型？</div>
+      <div class="opts" data-fork="bg">
+        <button data-val="order">订单</button>
+        <button data-val="contract">合同</button>
+      </div>
+      <div class="fork-out" data-show="order">
+        <div class="lbl">订单要素核对</div>
+        <div class="sub-chk"><input type="checkbox" class="cbx"><label>买卖双方信息（名称/地址/国别），与关单对应</label></div>
+        <div class="sub-chk"><input type="checkbox" class="cbx"><label>货物、数量、单价、总价、价格条款，与关单一致</label></div>
+        <div class="sub-chk"><input type="checkbox" class="cbx"><label>付款方式为 T/T，赊销账期（如发票日期后 XX 天）</label></div>
+        <div class="sub-chk"><input type="checkbox" class="cbx"><label>双方签章，签署日期早于出口日期</label></div>
+        <div class="note">订单要素要求与合同一致；<b>无结算账期无法办理</b>。</div>
+      </div>
+      <div class="fork-out" data-show="contract">
+        <div class="lbl">合同要素核对</div>
+        <div class="sub-chk"><input type="checkbox" class="cbx"><label>买卖双方信息 + <b>双方签章</b>，名称与关单对应</label></div>
+        <div class="sub-chk"><input type="checkbox" class="cbx"><label>货物、数量、单价、总价、价格条款，与关单一致</label></div>
+        <div class="sub-chk"><input type="checkbox" class="cbx"><label>付款方式为 T/T，赊销账期</label></div>
+        <div class="sub-chk"><input type="checkbox" class="cbx"><label>无限制应收账款转让、质押、抵销的条款</label></div>
+        <div class="sub-chk"><input type="checkbox" class="cbx"><label>收款账户为卖方在我行账户（他行需先变更回款账户）</label></div>
+        <div class="info">合同日期早于出口日期；非港澳台买方不能只写中文；我行账户开户早于合同日期。</div>
+      </div>
+    </div>
 
-    &lt;!-- review items --&gt;
-    &lt;div class=&quot;item open&quot;&gt;
-      &lt;div class=&quot;item-head&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;span class=&quot;item-title&quot;&gt;融资申请书&lt;/span&gt;&lt;span class=&quot;who cust&quot;&gt;网银生成&lt;/span&gt;&lt;span class=&quot;chev&quot;&gt;▶&lt;/span&gt;&lt;/div&gt;
-      &lt;div class=&quot;item-body&quot;&gt;
-        &lt;div class=&quot;info&quot;&gt;网银提交后&lt;b&gt;自动生成&lt;/b&gt;，无需准备，核对以下要点。&lt;/div&gt;
-        &lt;div class=&quot;lbl&quot;&gt;① 期限及宽限期&lt;/div&gt;
-        &lt;p&gt;融资到期日应&lt;b&gt;晚于应收账款到期日&lt;/b&gt;；期限&lt;b&gt;最长 4 个月&lt;/b&gt;（白名单 6 个月，含宽限期）。&lt;/p&gt;
-        &lt;ul&gt;
-          &lt;li&gt;多笔订单按&lt;b&gt;最晚到期日&lt;/b&gt;计算；&lt;/li&gt;
-          &lt;li&gt;宽限期&lt;b&gt;最长 1 个月&lt;/b&gt;；&lt;/li&gt;
-          &lt;li&gt;到期日&lt;b&gt;避开节假日&lt;/b&gt;。&lt;/li&gt;
-        &lt;/ul&gt;
-        &lt;div class=&quot;lbl&quot;&gt;② 币种&lt;/div&gt;
-        &lt;p&gt;&lt;b&gt;报关单为人民币时，融资币种仅限人民币，不得错币种融资。&lt;/b&gt;&lt;/p&gt;
-        &lt;div class=&quot;lbl&quot;&gt;③ 金额&lt;/div&gt;
-        &lt;p&gt;融资金额为&lt;b&gt;关单金额的 80%&lt;/b&gt;。&lt;/p&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <!-- review items -->
+    <div class="item open">
+      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">融资申请书</span><span class="who cust">网银生成</span><span class="chev">▶</span></div>
+      <div class="item-body">
+        <div class="info">网银提交后<b>自动生成</b>，无需准备，核对以下要点。</div>
+        <div class="lbl">① 期限及宽限期</div>
+        <p>融资到期日应<b>晚于应收账款到期日</b>；期限<b>最长 4 个月</b>（白名单 6 个月，含宽限期）。</p>
+        <ul>
+          <li>多笔订单按<b>最晚到期日</b>计算；</li>
+          <li>宽限期<b>最长 1 个月</b>；</li>
+          <li>到期日<b>避开节假日</b>。</li>
+        </ul>
+        <div class="lbl">② 币种</div>
+        <p><b>报关单为人民币时，融资币种仅限人民币，不得错币种融资。</b></p>
+        <div class="lbl">③ 金额</div>
+        <p>融资金额为<b>关单金额的 80%</b>。</p>
+      </div>
+    </div>
 
-    &lt;div class=&quot;item open&quot;&gt;
-      &lt;div class=&quot;item-head&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;span class=&quot;item-title&quot;&gt;报关单&lt;/span&gt;&lt;span class=&quot;who cust&quot;&gt;客户提供&lt;/span&gt;&lt;span class=&quot;chev&quot;&gt;▶&lt;/span&gt;&lt;/div&gt;
-      &lt;div class=&quot;item-body&quot;&gt;
-        &lt;p&gt;单一窗口打印；出口日期距放款日&lt;b&gt;2 个月内&lt;/b&gt;；&quot;&lt;b&gt;境外收货人&lt;/b&gt;&quot;不为空（一般为买方）。&lt;/p&gt;
-        &lt;div class=&quot;note&quot;&gt;未显示出口日期可能未结关。出口日期建议&lt;b&gt;距提款日 3 天以上&lt;/b&gt;，否则海关信息未传至外管局，无法放款。&lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="item open">
+      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">报关单</span><span class="who cust">客户提供</span><span class="chev">▶</span></div>
+      <div class="item-body">
+        <p>单一窗口打印；出口日期距放款日<b>2 个月内</b>；"<b>境外收货人</b>"不为空（一般为买方）。</p>
+        <div class="note">未显示出口日期可能未结关。出口日期建议<b>距提款日 3 天以上</b>，否则海关信息未传至外管局，无法放款。</div>
+      </div>
+    </div>
 
-    &lt;div class=&quot;item open&quot;&gt;
-      &lt;div class=&quot;item-head&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;span class=&quot;item-title&quot;&gt;发票清单&lt;/span&gt;&lt;span class=&quot;who cust&quot;&gt;客户录入&lt;/span&gt;&lt;span class=&quot;chev&quot;&gt;▶&lt;/span&gt;&lt;/div&gt;
-      &lt;div class=&quot;item-body&quot;&gt;
-        &lt;ul&gt;
-          &lt;li&gt;网银录入或导入，币种、金额&lt;b&gt;与关单一致&lt;/b&gt;；&lt;/li&gt;
-          &lt;li&gt;发票到期日为&lt;b&gt;按合同账期计算的应收账款到期日&lt;/b&gt;。&lt;/li&gt;
-        &lt;/ul&gt;
-        &lt;div class=&quot;info&quot;&gt;以客户录入的清单为准，&lt;b&gt;无需扫描上传&lt;/b&gt;。&lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="item open">
+      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">发票清单</span><span class="who cust">客户录入</span><span class="chev">▶</span></div>
+      <div class="item-body">
+        <ul>
+          <li>网银录入或导入，币种、金额<b>与关单一致</b>；</li>
+          <li>发票到期日为<b>按合同账期计算的应收账款到期日</b>。</li>
+        </ul>
+        <div class="info">以客户录入的清单为准，<b>无需扫描上传</b>。</div>
+      </div>
+    </div>
 
-  &lt;/section&gt;
+  </section>
 
-  &lt;!-- ============ TAB 3: 回款管理 ============ --&gt;
-  &lt;section class=&quot;panel&quot; id=&quot;repay&quot;&gt;
-    &lt;div class=&quot;phase-h&quot;&gt;&lt;span class=&quot;dot&quot;&gt;三&lt;/span&gt;回款管理&lt;/div&gt;
-    &lt;p class=&quot;phase-sub&quot;&gt;放款后回款准备资料 + 回款与还款规则。&lt;/p&gt;
+  <!-- ============ TAB 3: 回款管理 ============ -->
+  <section class="panel" id="repay">
+    <div class="phase-h"><span class="dot">三</span>回款管理</div>
+    <p class="phase-sub">放款后回款准备资料 + 回款与还款规则。</p>
 
-    &lt;div class=&quot;progress-wrap&quot;&gt;
-      &lt;div class=&quot;t&quot;&gt;&lt;span&gt;回款准备进度&lt;/span&gt;&lt;span class=&quot;cnt&quot; data-for=&quot;repay&quot;&gt;0 / 0&lt;/span&gt;&lt;/div&gt;
-      &lt;div class=&quot;bar-bg&quot;&gt;&lt;div class=&quot;bar-fill&quot; data-bar=&quot;repay&quot;&gt;&lt;/div&gt;&lt;/div&gt;
-    &lt;/div&gt;
+    <div class="progress-wrap">
+      <div class="t"><span>回款准备进度</span><span class="cnt" data-for="repay">0 / 0</span></div>
+      <div class="bar-bg"><div class="bar-fill" data-bar="repay"></div></div>
+    </div>
 
-    &lt;div class=&quot;phase-h&quot; style=&quot;font-size:1rem&quot;&gt;&lt;span class=&quot;dot&quot;&gt;①&lt;/span&gt;回款准备资料&lt;/div&gt;
+    <div class="phase-h" style="font-size:1rem"><span class="dot">①</span>回款准备资料</div>
 
-    &lt;div class=&quot;item open&quot;&gt;
-      &lt;div class=&quot;item-head&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;span class=&quot;item-title&quot;&gt;回款确认说明&lt;/span&gt;&lt;span class=&quot;who cm&quot;&gt;客户经理&lt;/span&gt;&lt;span class=&quot;chev&quot;&gt;▶&lt;/span&gt;&lt;/div&gt;
-      &lt;div class=&quot;item-body&quot;&gt;
-        &lt;p&gt;&lt;b&gt;统一回款用&lt;/b&gt;。线下办理，&lt;b&gt;客户经理及支行领导签字&lt;/b&gt;。&lt;/p&gt;
-        &lt;div class=&quot;info&quot;&gt;非融资对手回款统一确认即可，无需逐笔（模板见附件4）。&lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="item open">
+      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">回款确认说明</span><span class="who cm">客户经理</span><span class="chev">▶</span></div>
+      <div class="item-body">
+        <p><b>统一回款用</b>。线下办理，<b>客户经理及支行领导签字</b>。</p>
+        <div class="info">非融资对手回款统一确认即可，无需逐笔（模板见附件4）。</div>
+      </div>
+    </div>
 
-    &lt;div class=&quot;item open&quot;&gt;
-      &lt;div class=&quot;item-head&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;span class=&quot;item-title&quot;&gt;来款确认说明（非回款）/（回款）&lt;/span&gt;&lt;span class=&quot;who cm&quot;&gt;客户经理&lt;/span&gt;&lt;span class=&quot;chev&quot;&gt;▶&lt;/span&gt;&lt;/div&gt;
-      &lt;div class=&quot;item-body&quot;&gt;
-        &lt;p&gt;&lt;b&gt;单笔回款用&lt;/b&gt;。发邮件给&lt;b&gt;李庆琳&lt;/b&gt;，&lt;b&gt;抄送支行行长及交银领导&lt;/b&gt;，逐笔确认。&lt;/p&gt;
-        &lt;div class=&quot;lbl&quot;&gt;模板A · 非回款（非融资项下）&lt;/div&gt;
-        &lt;div class=&quot;tmpl&quot;&gt;我支行客户 XX 公司，于 XX 年 XX 月 XX 日来款 XX（币种及金额），付款人为 XX。经调查确认，该笔资金&lt;b&gt;非&lt;/b&gt;我行出口E融项下单证回款，请解付入账至客户在我行的结算账户。&lt;/div&gt;
-        &lt;div class=&quot;lbl&quot;&gt;模板B · 回款（融资项下）&lt;/div&gt;
-        &lt;div class=&quot;tmpl&quot;&gt;我支行客户 XX 公司，于 XX 年 XX 月 XX 日来款 XX（币种及金额），付款人为 XX。经调查确认，该笔资金&lt;b&gt;为&lt;/b&gt;我行出口E融项下回款，收款资金结汇用于归还我行融资本金及利息，归还借据号为 XX，归还本息金额合计为 XX。如有剩余资金，请入客户结算账户 XX。&lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="item open">
+      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">来款确认说明（非回款）/（回款）</span><span class="who cm">客户经理</span><span class="chev">▶</span></div>
+      <div class="item-body">
+        <p><b>单笔回款用</b>。发邮件给<b>李庆琳</b>，<b>抄送支行行长及交银领导</b>，逐笔确认。</p>
+        <div class="lbl">模板A · 非回款（非融资项下）</div>
+        <div class="tmpl">我支行客户 XX 公司，于 XX 年 XX 月 XX 日来款 XX（币种及金额），付款人为 XX。经调查确认，该笔资金<b>非</b>我行出口E融项下单证回款，请解付入账至客户在我行的结算账户。</div>
+        <div class="lbl">模板B · 回款（融资项下）</div>
+        <div class="tmpl">我支行客户 XX 公司，于 XX 年 XX 月 XX 日来款 XX（币种及金额），付款人为 XX。经调查确认，该笔资金<b>为</b>我行出口E融项下回款，收款资金结汇用于归还我行融资本金及利息，归还借据号为 XX，归还本息金额合计为 XX。如有剩余资金，请入客户结算账户 XX。</div>
+      </div>
+    </div>
 
-    &lt;div class=&quot;item open&quot;&gt;
-      &lt;div class=&quot;item-head&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;span class=&quot;item-title&quot;&gt;内联单（到期当日还款）&lt;/span&gt;&lt;span class=&quot;who cm&quot;&gt;客户经理&lt;/span&gt;&lt;span class=&quot;chev&quot;&gt;▶&lt;/span&gt;&lt;/div&gt;
-      &lt;div class=&quot;item-body&quot;&gt;
-        &lt;p&gt;到期当日还款用。线下办理，&lt;b&gt;客户经理及支行领导签字&lt;/b&gt;。&lt;/p&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="item open">
+      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">内联单（到期当日还款）</span><span class="who cm">客户经理</span><span class="chev">▶</span></div>
+      <div class="item-body">
+        <p>到期当日还款用。线下办理，<b>客户经理及支行领导签字</b>。</p>
+      </div>
+    </div>
 
-    &lt;div class=&quot;phase-h&quot; style=&quot;font-size:1rem;margin-top:20px&quot;&gt;&lt;span class=&quot;dot&quot;&gt;②&lt;/span&gt;回款与还款规则&lt;/div&gt;
+    <div class="phase-h" style="font-size:1rem;margin-top:20px"><span class="dot">②</span>回款与还款规则</div>
 
-    &lt;div class=&quot;item open&quot;&gt;
-      &lt;div class=&quot;item-head&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;span class=&quot;item-title&quot;&gt;回款入账确认&lt;/span&gt;&lt;span class=&quot;who cm&quot;&gt;客户经理&lt;/span&gt;&lt;span class=&quot;chev&quot;&gt;▶&lt;/span&gt;&lt;/div&gt;
-      &lt;div class=&quot;item-body&quot;&gt;
-        &lt;p&gt;融资对手回款：&lt;b&gt;逐笔邮件确认&lt;/b&gt;（使用上方模板）。&lt;/p&gt;
-        &lt;div class=&quot;info&quot;&gt;&lt;b&gt;非&lt;/b&gt;融资对手回款：出具&lt;b&gt;统一确认说明&lt;/b&gt;即可，无需逐笔（附件4）。&lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="item open">
+      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">回款入账确认</span><span class="who cm">客户经理</span><span class="chev">▶</span></div>
+      <div class="item-body">
+        <p>融资对手回款：<b>逐笔邮件确认</b>（使用上方模板）。</p>
+        <div class="info"><b>非</b>融资对手回款：出具<b>统一确认说明</b>即可，无需逐笔（附件4）。</div>
+      </div>
+    </div>
 
-    &lt;div class=&quot;item open&quot;&gt;
-      &lt;div class=&quot;item-head&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;cbx&quot;&gt;&lt;span class=&quot;item-title&quot;&gt;还款&lt;/span&gt;&lt;span class=&quot;who cm&quot;&gt;客户经理&lt;/span&gt;&lt;span class=&quot;chev&quot;&gt;▶&lt;/span&gt;&lt;/div&gt;
-      &lt;div class=&quot;item-body&quot;&gt;
-        &lt;p&gt;融资项下回款&lt;b&gt;直接用于还款&lt;/b&gt;。&lt;/p&gt;
-        &lt;ul&gt;
-          &lt;li&gt;&lt;b&gt;可提前还款&lt;/b&gt;，可用&lt;b&gt;自有资金&lt;/b&gt;还款；&lt;/li&gt;
-          &lt;li&gt;原则上&lt;b&gt;不得用融资本金购汇还款&lt;/b&gt;。&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/section&gt;
+    <div class="item open">
+      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">还款</span><span class="who cm">客户经理</span><span class="chev">▶</span></div>
+      <div class="item-body">
+        <p>融资项下回款<b>直接用于还款</b>。</p>
+        <ul>
+          <li><b>可提前还款</b>，可用<b>自有资金</b>还款；</li>
+          <li>原则上<b>不得用融资本金购汇还款</b>。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-  &lt;footer&gt;依据《出口E融业务流程、资料清单及审查要点提示》整理 · 政策更新以总分行最新通知为准&lt;/footer&gt;
-&lt;/div&gt;
+  <footer>依据《出口E融业务流程、资料清单及审查要点提示》整理 · 政策更新以总分行最新通知为准</footer>
+</div>
 
-&lt;nav class=&quot;nav&quot;&gt;
-  &lt;button class=&quot;active&quot; data-tab=&quot;prep&quot;&gt;&lt;span class=&quot;ic&quot;&gt;①&lt;/span&gt;放款准备&lt;/button&gt;
-  &lt;button data-tab=&quot;review&quot;&gt;&lt;span class=&quot;ic&quot;&gt;②&lt;/span&gt;资料审查&lt;/button&gt;
-  &lt;button data-tab=&quot;repay&quot;&gt;&lt;span class=&quot;ic&quot;&gt;③&lt;/span&gt;回款管理&lt;/button&gt;
-&lt;/nav&gt;
+<nav class="nav">
+  <button class="active" data-tab="prep"><span class="ic">①</span>放款准备</button>
+  <button data-tab="review"><span class="ic">②</span>资料审查</button>
+  <button data-tab="repay"><span class="ic">③</span>回款管理</button>
+</nav>
 
-&lt;script&gt;
+<script>
   // tabs
-  document.querySelectorAll(&#x27;.nav button&#x27;).forEach(b=&gt;{
-    b.addEventListener(&#x27;click&#x27;,()=&gt;{
-      document.querySelectorAll(&#x27;.nav button&#x27;).forEach(x=&gt;x.classList.remove(&#x27;active&#x27;));
-      document.querySelectorAll(&#x27;.panel&#x27;).forEach(x=&gt;x.classList.remove(&#x27;active&#x27;));
-      b.classList.add(&#x27;active&#x27;);
-      document.getElementById(b.dataset.tab).classList.add(&#x27;active&#x27;);
+  document.querySelectorAll('.nav button').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      document.getElementById(b.dataset.tab).classList.add('active');
       updateAll();
-      window.scrollTo({top:0,behavior:&#x27;smooth&#x27;});
+      window.scrollTo({top:0,behavior:'smooth'});
     });
   });
 
   // accordion (click head, but not the checkbox)
-  document.querySelectorAll(&#x27;.item-head&#x27;).forEach(h=&gt;{
-    h.addEventListener(&#x27;click&#x27;,e=&gt;{
-      if(e.target.classList.contains(&#x27;cbx&#x27;))return;
-      h.parentElement.classList.toggle(&#x27;open&#x27;);
+  document.querySelectorAll('.item-head').forEach(h=>{
+    h.addEventListener('click',e=>{
+      if(e.target.classList.contains('cbx'))return;
+      h.parentElement.classList.toggle('open');
     });
   });
 
   // checkbox visual state on item cards
-  document.querySelectorAll(&#x27;.item .cbx&#x27;).forEach(c=&gt;{
-    c.addEventListener(&#x27;change&#x27;,()=&gt;{
-      c.closest(&#x27;.item&#x27;).classList.toggle(&#x27;checked&#x27;,c.checked);
+  document.querySelectorAll('.item .cbx').forEach(c=>{
+    c.addEventListener('change',()=>{
+      c.closest('.item').classList.toggle('checked',c.checked);
       updateAll();
     });
   });
   // sub-checkboxes inside forks
-  document.querySelectorAll(&#x27;.sub-chk .cbx&#x27;).forEach(c=&gt;{
-    c.addEventListener(&#x27;change&#x27;,()=&gt;{
-      c.closest(&#x27;.sub-chk&#x27;).classList.toggle(&#x27;done&#x27;,c.checked);
+  document.querySelectorAll('.sub-chk .cbx').forEach(c=>{
+    c.addEventListener('change',()=>{
+      c.closest('.sub-chk').classList.toggle('done',c.checked);
       updateAll();
     });
   });
 
   // forks
-  document.querySelectorAll(&#x27;.opts&#x27;).forEach(o=&gt;{
-    const fork=o.closest(&#x27;.fork&#x27;);
-    o.querySelectorAll(&#x27;button&#x27;).forEach(btn=&gt;{
-      btn.addEventListener(&#x27;click&#x27;,()=&gt;{
-        o.querySelectorAll(&#x27;button&#x27;).forEach(b=&gt;b.classList.remove(&#x27;sel&#x27;));
-        btn.classList.add(&#x27;sel&#x27;);
-        fork.querySelectorAll(&#x27;.fork-out&#x27;).forEach(f=&gt;{
-          f.classList.toggle(&#x27;show&#x27;, f.dataset.show===btn.dataset.val);
+  document.querySelectorAll('.opts').forEach(o=>{
+    const fork=o.closest('.fork');
+    o.querySelectorAll('button').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        o.querySelectorAll('button').forEach(b=>b.classList.remove('sel'));
+        btn.classList.add('sel');
+        fork.querySelectorAll('.fork-out').forEach(f=>{
+          f.classList.toggle('show', f.dataset.show===btn.dataset.val);
         });
         updateAll();
       });
@@ -891,27 +891,28 @@ window.addEventListener('resize',sizeCheckFrame);
 
   // progress: count only visible checkboxes per panel
   function updateAll(){
-    document.querySelectorAll(&#x27;.panel&#x27;).forEach(p=&gt;{
+    document.querySelectorAll('.panel').forEach(p=>{
       const id=p.id;
-      const boxes=[...p.querySelectorAll(&#x27;.cbx&#x27;)].filter(c=&gt;c.offsetParent!==null);
-      const done=boxes.filter(c=&gt;c.checked).length;
-      const cnt=document.querySelector(&#x27;.cnt[data-for=&quot;&#x27;+id+&#x27;&quot;]&#x27;);
-      const bar=document.querySelector(&#x27;.bar-fill[data-bar=&quot;&#x27;+id+&#x27;&quot;]&#x27;);
-      if(cnt)cnt.textContent=done+&#x27; / &#x27;+boxes.length;
+      const boxes=[...p.querySelectorAll('.cbx')].filter(c=>c.offsetParent!==null);
+      const done=boxes.filter(c=>c.checked).length;
+      const cnt=document.querySelector('.cnt[data-for="'+id+'"]');
+      const bar=document.querySelector('.bar-fill[data-bar="'+id+'"]');
+      if(cnt)cnt.textContent=done+' / '+boxes.length;
       if(bar){
         const pct=boxes.length?done/boxes.length*100:0;
-        bar.style.width=pct+&#x27;%&#x27;;
-        bar.classList.toggle(&#x27;full&#x27;,boxes.length&gt;0 &amp;&amp; done===boxes.length);
+        bar.style.width=pct+'%';
+        bar.classList.toggle('full',boxes.length>0 && done===boxes.length);
       }
       if(cnt){
-        cnt.classList.toggle(&#x27;ok&#x27;,boxes.length&gt;0 &amp;&amp; done===boxes.length);
+        cnt.classList.toggle('ok',boxes.length>0 && done===boxes.length);
       }
     });
   }
   updateAll();
-&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-"></iframe></div>
+<\/script>
+</body>
+</html>
+</script>
+<div class="manual-view" id="checkView"><div class="mv-bar"><button class="bk" onclick="closeCheck()">‹ 返回</button><span class="ttl">出口e融 · 放款自查表</span></div><iframe id="checkFrame" title="放款自查表" style="width:100%;border:0;display:block;background:#f3f6f3"></iframe></div>
 </body>
 </html>
