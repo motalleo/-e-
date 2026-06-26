@@ -170,9 +170,9 @@
 <body>
 <header>
   <div class="wrap">
-    <p class="eyebrow">结算+ · 跨境金融</p>
+    <p class="eyebrow">民生银行深圳分行 · 交易银行部 · 国际业务团队</p>
     <h1>出口e融 · 客户经理一点通</h1>
-    <p class="sub">扫码即用 · 客户筛查 + 操作流程</p>
+    <p class="sub">客户筛查 · 操作流程 · 放款自查</p>
     <span class="tagline">纯信用 · 全线上 · 额度循环</span>
   </div>
 </header>
@@ -196,6 +196,12 @@
     <button class="entry c2" onclick="go('flow')">
       <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="1.6"/><circle cx="5" cy="12" r="1.6"/><circle cx="5" cy="18" r="1.6"/><line x1="9.5" y1="6" x2="20" y2="6"/><line x1="9.5" y1="12" x2="20" y2="12"/><line x1="9.5" y1="18" x2="20" y2="18"/></svg></span>
       <span class="txt"><b>操作流程</b><span>七步线上办理全流程 + 系统入口</span></span>
+      <span class="go"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+    </button>
+
+    <button class="entry c3" onclick="openCheck()">
+      <span class="ico" style="background:linear-gradient(135deg,#1f9d6b,#0a6f5b)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v2H9z"/><path d="M9 13l2 2 4-4"/></svg></span>
+      <span class="txt"><b>放款自查表</b><span>放款全流程逐项勾选，勾完再提交</span></span>
       <span class="go"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
     </button>
 
@@ -277,7 +283,6 @@
         <div class="acc-head"><span class="num">2</span><h4>客户授信申请（网银）</h4><span class="arrow"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div>
         <div class="acc-body"><div class="acc-in">
           登录融资申请平台，产品选"出口e融"，经办录入企业 / 实控人 / 经营信息并上传证照，复核员复核提交。提交后可即时<b>测算预授信额度</b>（仅参考）。
-          <div class="url" onclick="copyText('https://ent.cmbc.com.cn',this,event)">https://ent.cmbc.com.cn<span class="cp">复制</span></div>
           <div class="metas"><span class="meta">企业经办 + 复核</span></div>
         </div></div>
       </div>
@@ -343,6 +348,7 @@
   <button class="bn on" data-tab="home" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>首页</button>
   <button class="bn" data-tab="check" onclick="go('check')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.2 2.2L15.5 9.5"/></svg>客户筛查</button>
   <button class="bn" data-tab="flow" onclick="go('flow')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="1.6"/><circle cx="5" cy="12" r="1.6"/><circle cx="5" cy="18" r="1.6"/><line x1="9.5" y1="6" x2="20" y2="6"/><line x1="9.5" y1="12" x2="20" y2="12"/><line x1="9.5" y1="18" x2="20" y2="18"/></svg>操作流程</button>
+  <button class="bn" onclick="openCheck()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v2H9z"/><path d="M9 13l2 2 4-4"/></svg>放款自查</button>
 </div></nav>
 
 <div id="toast"></div>
@@ -455,6 +461,11 @@
 <script>
 function openManual(){var m=document.getElementById('manualView');m.classList.add('open');m.scrollTop=0;document.body.style.overflow='hidden';}
 function closeManual(){document.getElementById('manualView').classList.remove('open');document.body.style.overflow='';}
+function sizeCheckFrame(){var f=document.getElementById('checkFrame');if(f)f.style.height=(window.innerHeight-50)+'px';}
+function openCheck(){var v=document.getElementById('checkView');var f=document.getElementById('checkFrame');if(!f.getAttribute('src'))f.setAttribute('src','出口e融自查表/出口e融自查表.html');sizeCheckFrame();v.classList.add('open');v.scrollTop=0;document.body.style.overflow='hidden';}
+function closeCheck(){document.getElementById('checkView').classList.remove('open');document.body.style.overflow='';}
+window.addEventListener('resize',sizeCheckFrame);
 </script>
+<div class="manual-view" id="checkView"><div class="mv-bar"><button class="bk" onclick="closeCheck()">‹ 返回</button><span class="ttl">出口e融 · 放款自查表</span></div><iframe id="checkFrame" title="放款自查表" style="width:100%;border:0;display:block;background:#eef1f7"></iframe></div>
 </body>
 </html>
