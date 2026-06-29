@@ -315,7 +315,7 @@
       <div class="acc" onclick="toggleAcc(this)">
         <div class="acc-head"><span class="num">6</span><h4>融资发放（出口报关后）</h4><span class="arrow"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div>
         <div class="acc-body"><div class="acc-in">
-          企业完成出口报关，网银发起提款，录入 / 导入<b>报关单、合同、发票清单</b>。要点：结算须为 <b>T/T 电汇赊销</b>；报关单出口日期距放款 2 个月内；融资比例 <b>85–90%</b>；期限 ≤ 4 个月。审核通过资金入账。
+          企业完成出口报关，网银发起提款，上传<b>报关单/合同</b>，导入/录入<b>发票清单</b>。要点：结算须为 <b>T/T 电汇赊销、信用证、出口托收</b>；报关单出口日期距放款 2 个月内；融资比例 <b>85–90%</b>；期限 ≤ 4 个月。审核通过资金入账。
           <div class="metas"><span class="meta">企业 + 客户经理</span><span class="meta t">最快当天到账</span></div>
         </div></div>
       </div>
@@ -645,10 +645,9 @@ window.addEventListener('resize',sizeCheckFrame);
     <div class="item open">
       <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">交易背景尽调</span><span class="who cm">客户经理</span><span class="chev">▶</span></div>
       <div class="item-body">
-        <p>参照<b>附件3模板</b>，用于尽调及风控系统填写，需写明两项：</p>
+        <p>参照<b>附件3模板</b>尽调，放款时录入风控系统。</p>
         <ul>
           <li>交易背景是否真实、是否关联交易；</li>
-          <li>融资信息：借款人、币种、金额、利率、到期日。</li>
         </ul>
       </div>
     </div>
@@ -656,8 +655,8 @@ window.addEventListener('resize',sizeCheckFrame);
     <div class="item open">
       <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">放款资料预审</span><span class="who bank">交易银行部</span><span class="chev">▶</span></div>
       <div class="item-body">
-        <p>将<b>合同、报关单、发票清单</b>发交易银行部预审。</p>
-        <div class="info">网银提交前完成预审资料。</div>
+        <p><b>首笔放款前</b>将合同、报关单发交易银行部预审。</p>
+        <div class="info">交易对手、账期无变化，无需每笔预审。</div>
       </div>
     </div>
 
@@ -671,7 +670,7 @@ window.addEventListener('resize',sizeCheckFrame);
           <li><b>上传影像：</b>合同、报关单、提示函（如需）</li>
           <li><b>网银导入：</b>发票清单</li>
         </ul>
-        <div class="note"><b>三点提醒（任一不符当天无法放款）：</b><br>① 须<b>当天</b>提交，提前无效；<br>② <b>不同币种、不同买方</b>需分别发起；<br>③ 勿上传未要求的单证。</div>
+        <div class="note"><b>三点提醒（任一不符当天无法放款）：</b><br>① 须<b>当天</b>提交，提前无效；<br>② 不同币种需分别发起；<br>③ 勿上传未要求的单证。</div>
       </div>
     </div>
   </section>
@@ -707,31 +706,29 @@ window.addEventListener('resize',sizeCheckFrame);
     <div class="fork">
       <div class="q"><span class="qi">?</span>贸易背景类型？</div>
       <div class="opts" data-fork="bg">
-        <button data-val="order">订单</button>
-        <button data-val="contract">合同</button>
+        <button class="sel" data-val="contract">合同/订单</button>
       </div>
-      <div class="fork-out" data-show="order">
-        <div class="lbl">订单要素核对</div>
-        <div class="sub-chk"><input type="checkbox" class="cbx"><label>买卖双方信息（名称/地址/国别），与关单对应</label></div>
+      <div class="fork-out show" data-show="contract">
+        <div class="lbl">合同/订单要素核对</div>
+        <div class="sub-chk"><input type="checkbox" class="cbx"><label>买卖双方信息（名称/地址/国别），与关单一致</label></div>
         <div class="sub-chk"><input type="checkbox" class="cbx"><label>货物、数量、单价、总价、价格条款，与关单一致</label></div>
-        <div class="sub-chk"><input type="checkbox" class="cbx"><label>付款方式为 T/T，赊销账期（如发票日期后 XX 天）</label></div>
-        <div class="sub-chk"><input type="checkbox" class="cbx"><label>双方签章，签署日期早于出口日期</label></div>
-        <div class="note">订单要素要求与合同一致；<b>无结算账期无法办理</b>。</div>
-      </div>
-      <div class="fork-out" data-show="contract">
-        <div class="lbl">合同要素核对</div>
-        <div class="sub-chk"><input type="checkbox" class="cbx"><label>买卖双方信息 + <b>双方签章</b>，名称与关单对应</label></div>
-        <div class="sub-chk"><input type="checkbox" class="cbx"><label>货物、数量、单价、总价、价格条款，与关单一致</label></div>
-        <div class="sub-chk"><input type="checkbox" class="cbx"><label>付款方式为 T/T，赊销账期</label></div>
-        <div class="sub-chk"><input type="checkbox" class="cbx"><label>无限制应收账款转让、质押、抵销的条款</label></div>
-        <div class="sub-chk"><input type="checkbox" class="cbx"><label>收款账户为卖方在我行账户（他行需先变更回款账户）</label></div>
-        <div class="info">合同日期早于出口日期；非港澳台买方不能只写中文；我行账户开户早于合同日期。</div>
+        <div class="sub-chk"><input type="checkbox" class="cbx"><label>付款方式如为 T/T，需有赊销账期（如发票日期后 XX 天）</label></div>
+        <div class="sub-chk"><input type="checkbox" class="cbx"><label>合同签署日期早于出口申报日期</label></div>
+        <div class="sub-chk"><input type="checkbox" class="cbx"><label>非港澳台买方，合同要素不能只写中文</label></div>
       </div>
     </div>
 
     <!-- review items -->
     <div class="item open">
-      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">融资申请书</span><span class="who cust">网银生成</span><span class="chev">▶</span></div>
+      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">报关单</span><span class="who cust">客户提供</span><span class="chev">▶</span></div>
+      <div class="item-body">
+        <p>单一窗口打印；出口日期距放款日<b>2 个月内</b>；"<b>境外收货人</b>"不为空（一般为买方）。</p>
+        <div class="note">未显示出口日期可能未结关。出口日期建议<b>距提款日 3 天以上</b>，否则海关信息未传至外管局，无法放款。</div>
+      </div>
+    </div>
+
+    <div class="item open">
+      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">融资申请书及发票清单</span><span class="who cust">网银生成/客户录入</span><span class="chev">▶</span></div>
       <div class="item-body">
         <div class="info">网银提交后<b>自动生成</b>，无需准备，核对以下要点。</div>
         <div class="lbl">① 期限及宽限期</div>
@@ -744,21 +741,8 @@ window.addEventListener('resize',sizeCheckFrame);
         <div class="lbl">② 币种</div>
         <p><b>报关单为人民币时，融资币种仅限人民币，不得错币种融资。</b></p>
         <div class="lbl">③ 金额</div>
-        <p>融资金额为<b>关单金额的 80%</b>。</p>
-      </div>
-    </div>
-
-    <div class="item open">
-      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">报关单</span><span class="who cust">客户提供</span><span class="chev">▶</span></div>
-      <div class="item-body">
-        <p>单一窗口打印；出口日期距放款日<b>2 个月内</b>；"<b>境外收货人</b>"不为空（一般为买方）。</p>
-        <div class="note">未显示出口日期可能未结关。出口日期建议<b>距提款日 3 天以上</b>，否则海关信息未传至外管局，无法放款。</div>
-      </div>
-    </div>
-
-    <div class="item open">
-      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">发票清单</span><span class="who cust">客户录入</span><span class="chev">▶</span></div>
-      <div class="item-body">
+        <p>融资金额为<b>关单金额的 85-90%</b>。</p>
+        <div class="lbl">④ 发票清单</div>
         <ul>
           <li>网银录入或导入，币种、金额<b>与关单一致</b>；</li>
           <li>发票到期日为<b>按合同账期计算的应收账款到期日</b>。</li>
@@ -782,14 +766,6 @@ window.addEventListener('resize',sizeCheckFrame);
     <div class="phase-h" style="font-size:1rem"><span class="dot">①</span>回款准备资料</div>
 
     <div class="item open">
-      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">回款确认说明</span><span class="who cm">客户经理</span><span class="chev">▶</span></div>
-      <div class="item-body">
-        <p><b>统一回款用</b>。线下办理，<b>客户经理及支行领导签字</b>。</p>
-        <div class="info">非融资对手回款统一确认即可，无需逐笔（模板见附件4）。</div>
-      </div>
-    </div>
-
-    <div class="item open">
       <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">来款确认说明（非回款）/（回款）</span><span class="who cm">客户经理</span><span class="chev">▶</span></div>
       <div class="item-body">
         <p><b>单笔回款用</b>。发邮件给<b>李庆琳</b>，<b>抄送支行行长及交银领导</b>，逐笔确认。</p>
@@ -801,9 +777,10 @@ window.addEventListener('resize',sizeCheckFrame);
     </div>
 
     <div class="item open">
-      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">内联单（到期当日还款）</span><span class="who cm">客户经理</span><span class="chev">▶</span></div>
+      <div class="item-head"><input type="checkbox" class="cbx"><span class="item-title">回款确认说明</span><span class="who cm">客户经理</span><span class="chev">▶</span></div>
       <div class="item-body">
-        <p>到期当日还款用。线下办理，<b>客户经理及支行领导签字</b>。</p>
+        <p><b>统一回款用</b>。线下办理，<b>客户经理及支行领导签字</b>。</p>
+        <div class="info">非融资对手回款统一确认即可，无需逐笔（模板见附件4）。</div>
       </div>
     </div>
 
